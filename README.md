@@ -49,12 +49,13 @@ Salida esperada:
 
 ### Problema 2: resolver un laberinto 60x80
 
-`python -m src.main solve --generator prim --search astar --rows 60 --cols 80 --seed 42 --output reports/solve_60x80.png`
+`python -m src.main solve --generator prim --search astar --rows 60 --cols 80 --seed 42 --output reports/solve_60x80.png --animate-output reports/solve_60x80.gif`
 
 Salida esperada:
 - Estadisticas en consola: longitud del camino, nodos explorados, tiempo.
 - Imagen de la solucion en `reports/solve_60x80.png`.
 - La imagen incluye region explorada por el algoritmo y camino final.
+- GIF opcional en `reports/solve_60x80.gif` mostrando exploracion y camino final.
 
 ### Problema 3: comparar algoritmos en K escenarios
 

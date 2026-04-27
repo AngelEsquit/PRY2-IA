@@ -59,4 +59,5 @@ def test_search_algorithms_find_a_valid_path():
         assert result.path[-1] == goal
         assert result.explored_count > 0
         assert result.explored_nodes
+        assert result.explored_order
         assert result.path[-1] in result.explored_nodes
