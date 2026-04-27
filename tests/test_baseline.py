@@ -1,4 +1,9 @@
-from src.maze.generators import generate_kruskal_maze, generate_prim_maze
+from src.maze.generators import (
+    generate_kruskal_maze,
+    generate_kruskal_maze_with_trace,
+    generate_prim_maze,
+    generate_prim_maze_with_trace,
+)
 from src.search.algorithms import astar, bfs, dfs, ucs
 
 
@@ -28,6 +33,14 @@ def test_prim_and_kruskal_generate_connected_mazes():
     assert kruskal_maze.edge_count() == kruskal_maze.expected_tree_edges()
 
 
+def test_generation_trace_has_tree_edge_count():
+    prim_maze, prim_steps = generate_prim_maze_with_trace(10, 11, seed=5)
+    kruskal_maze, kruskal_steps = generate_kruskal_maze_with_trace(10, 11, seed=5)
+
+    assert len(prim_steps) == prim_maze.expected_tree_edges()
+    assert len(kruskal_steps) == kruskal_maze.expected_tree_edges()
+
+
 def test_search_algorithms_find_a_valid_path():
     maze = generate_prim_maze(20, 20, seed=7)
     start = (0, 0)
@@ -45,3 +58,5 @@ def test_search_algorithms_find_a_valid_path():
         assert result.path[0] == start
         assert result.path[-1] == goal
         assert result.explored_count > 0
+        assert result.explored_nodes
+        assert result.path[-1] in result.explored_nodes

@@ -6,10 +6,19 @@ from statistics import mean
 from typing import Callable, Dict
 
 from src.experiments.compare import run_k_comparison
-from src.maze.generators import generate_kruskal_maze, generate_prim_maze
+from src.maze.generators import (
+    generate_kruskal_maze,
+    generate_kruskal_maze_with_trace,
+    generate_prim_maze,
+    generate_prim_maze_with_trace,
+)
 from src.maze.grid import Cell, Maze
 from src.search.algorithms import SearchResult, astar, bfs, dfs, ucs
-from src.visualization.plotting import save_maze_solution_plot
+from src.visualization.plotting import (
+    save_generation_comparison_animation,
+    save_maze_solution_animation,
+    save_maze_solution_plot,
+)
 
 Generator = Callable[[int, int, int | None], Maze]
 Solver = Callable[[Maze, Cell, Cell], SearchResult]
@@ -47,6 +56,7 @@ def _run_solve(args: argparse.Namespace) -> None:
         start=start,
         goal=goal,
         path=result.path,
+        explored=result.explored_nodes,
         output_path=args.output,
     )
 
@@ -55,6 +65,19 @@ def _run_solve(args: argparse.Namespace) -> None:
         f"explored={result.explored_count} time_ms={result.elapsed_ms:.3f}"
     )
     print(f"plot_saved={save_path}")
+
+    if args.animate_output:
+        animation_path = save_maze_solution_animation(
+            maze=maze,
+            start=start,
+            goal=goal,
+            path=result.path,
+            explored_order=result.explored_order,
+            output_path=args.animate_output,
+            max_frames=args.animate_frames,
+            fps=args.animate_fps,
+        )
+        print(f"animation_saved={animation_path}")
 
 
 def _run_compare(args: argparse.Namespace) -> None:
@@ -86,6 +109,22 @@ def _run_compare(args: argparse.Namespace) -> None:
         print(line)
 
 
+def _run_generation_compare(args: argparse.Namespace) -> None:
+    _, prim_steps = generate_prim_maze_with_trace(args.rows, args.cols, args.seed)
+    _, kruskal_steps = generate_kruskal_maze_with_trace(args.rows, args.cols, args.seed)
+
+    output = save_generation_comparison_animation(
+        rows=args.rows,
+        cols=args.cols,
+        prim_steps=prim_steps,
+        kruskal_steps=kruskal_steps,
+        output_path=args.output,
+        max_frames=args.max_frames,
+        fps=args.fps,
+    )
+    print(f"generation_compare_gif={output}")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Proyecto 2 IA - Laberintos y busqueda")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -97,6 +136,9 @@ def build_parser() -> argparse.ArgumentParser:
     solve_parser.add_argument("--cols", type=int, default=80)
     solve_parser.add_argument("--seed", type=int, default=42)
     solve_parser.add_argument("--output", default="reports/solve.png")
+    solve_parser.add_argument("--animate-output", default="")
+    solve_parser.add_argument("--animate-frames", type=int, default=140)
+    solve_parser.add_argument("--animate-fps", type=int, default=12)
     solve_parser.set_defaults(func=_run_solve)
 
     compare_parser = subparsers.add_parser("compare", help="Ejecuta K escenarios y compara BFS/DFS/UCS/A*")
@@ -109,6 +151,18 @@ def build_parser() -> argparse.ArgumentParser:
     compare_parser.add_argument("--output-csv", default="reports/comparison.csv")
     compare_parser.add_argument("--summary-txt", default="reports/ranking_summary.txt")
     compare_parser.set_defaults(func=_run_compare)
+
+    generation_parser = subparsers.add_parser(
+        "buildviz",
+        help="Genera una animacion GIF comparando la construccion de laberintos con Prim y Kruskal",
+    )
+    generation_parser.add_argument("--rows", type=int, default=30)
+    generation_parser.add_argument("--cols", type=int, default=40)
+    generation_parser.add_argument("--seed", type=int, default=42)
+    generation_parser.add_argument("--max-frames", type=int, default=120)
+    generation_parser.add_argument("--fps", type=int, default=12)
+    generation_parser.add_argument("--output", default="reports/generation_compare.gif")
+    generation_parser.set_defaults(func=_run_generation_compare)
 
     return parser
 

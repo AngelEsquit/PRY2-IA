@@ -6,10 +6,13 @@ from typing import Dict, List, Tuple
 
 from src.maze.grid import Cell, Maze
 
+GenerationStep = Tuple[Cell, Cell]
 
-def generate_prim_maze(rows: int, cols: int, seed: int | None = None) -> Maze:
+
+def _generate_prim_maze(rows: int, cols: int, seed: int | None = None) -> tuple[Maze, List[GenerationStep]]:
     rng = random.Random(seed)
     maze = Maze(rows=rows, cols=cols)
+    steps: List[GenerationStep] = []
 
     start = (0, 0)
     visited = {start}
@@ -30,10 +33,20 @@ def generate_prim_maze(rows: int, cols: int, seed: int | None = None) -> Maze:
             continue
 
         maze.carve_passage(source, target)
+        steps.append((source, target))
         visited.add(target)
         add_frontier(target)
 
+    return maze, steps
+
+
+def generate_prim_maze(rows: int, cols: int, seed: int | None = None) -> Maze:
+    maze, _ = _generate_prim_maze(rows=rows, cols=cols, seed=seed)
     return maze
+
+
+def generate_prim_maze_with_trace(rows: int, cols: int, seed: int | None = None) -> tuple[Maze, List[GenerationStep]]:
+    return _generate_prim_maze(rows=rows, cols=cols, seed=seed)
 
 
 @dataclass
@@ -66,11 +79,12 @@ class UnionFind:
         return True
 
 
-def generate_kruskal_maze(rows: int, cols: int, seed: int | None = None) -> Maze:
+def _generate_kruskal_maze(rows: int, cols: int, seed: int | None = None) -> tuple[Maze, List[GenerationStep]]:
     rng = random.Random(seed)
     maze = Maze(rows=rows, cols=cols)
     cells = list(maze.all_cells())
     dsu = UnionFind.from_cells(cells)
+    steps: List[GenerationStep] = []
 
     walls: List[Tuple[Cell, Cell]] = []
     for cell in cells:
@@ -85,5 +99,15 @@ def generate_kruskal_maze(rows: int, cols: int, seed: int | None = None) -> Maze
     for cell_a, cell_b in walls:
         if dsu.union(cell_a, cell_b):
             maze.carve_passage(cell_a, cell_b)
+            steps.append((cell_a, cell_b))
 
+    return maze, steps
+
+
+def generate_kruskal_maze(rows: int, cols: int, seed: int | None = None) -> Maze:
+    maze, _ = _generate_kruskal_maze(rows=rows, cols=cols, seed=seed)
     return maze
+
+
+def generate_kruskal_maze_with_trace(rows: int, cols: int, seed: int | None = None) -> tuple[Maze, List[GenerationStep]]:
+    return _generate_kruskal_maze(rows=rows, cols=cols, seed=seed)

@@ -40,6 +40,13 @@ Base de trabajo para el proyecto de comparacion de algoritmos de busqueda en lab
 
 ## Uso rapido
 
+### Problema 1: comparar construccion de laberintos (animacion)
+
+`python -m src.main buildviz --rows 30 --cols 40 --seed 42 --output reports/generation_compare.gif`
+
+Salida esperada:
+- GIF con la evolucion de construccion en paralelo para Prim y Kruskal.
+
 ### Problema 2: resolver un laberinto 60x80
 
 `python -m src.main solve --generator prim --search astar --rows 60 --cols 80 --seed 42 --output reports/solve_60x80.png`
@@ -47,6 +54,7 @@ Base de trabajo para el proyecto de comparacion de algoritmos de busqueda en lab
 Salida esperada:
 - Estadisticas en consola: longitud del camino, nodos explorados, tiempo.
 - Imagen de la solucion en `reports/solve_60x80.png`.
+- La imagen incluye region explorada por el algoritmo y camino final.
 
 ### Problema 3: comparar algoritmos en K escenarios
 
