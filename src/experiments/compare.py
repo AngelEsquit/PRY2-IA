@@ -4,14 +4,27 @@ import csv
 import random
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Dict, List, Tuple
+from statistics import mean
+from typing import Callable, Dict, List, Optional, Tuple
 
 from src.maze.generators import generate_kruskal_maze, generate_prim_maze
 from src.maze.grid import Cell, Maze
 from src.search.algorithms import SearchResult, astar, bfs, dfs, ucs
+from src.visualization.plotting import (
+    save_maze_only_plot,
+    save_ranking_bar_chart,
+    save_scenario_comparison_plot,
+)
 
 Generator = Callable[[int, int, int | None], Maze]
 Solver = Callable[[Maze, Cell, Cell], SearchResult]
+
+_ALGO_LABELS: Dict[str, str] = {
+    "bfs": "BFS",
+    "dfs": "DFS",
+    "ucs": "Dijkstra",
+    "astar": "A*",
+}
 
 
 @dataclass
@@ -55,6 +68,7 @@ def run_k_comparison(
     seed: int,
     min_manhattan: int = 10,
     output_csv: str = "reports/comparison.csv",
+    viz_dir: Optional[str] = None,
 ) -> List[ScenarioResult]:
     generators: Dict[str, Generator] = {
         "prim": generate_prim_maze,
@@ -68,7 +82,7 @@ def run_k_comparison(
     }
 
     if generator_name not in generators:
-        raise ValueError(f"Unsupported generator: {generator_name}")
+        raise ValueError(f"Generador no soportado: {generator_name}")
 
     rng = random.Random(seed)
     generator = generators[generator_name]
@@ -81,6 +95,39 @@ def run_k_comparison(
 
         metrics = {name: solver(maze, start, goal) for name, solver in solvers.items()}
         ranks = _rank_algorithms(metrics)
+
+        if viz_dir:
+            scenario_out = Path(viz_dir) / f"scenario_{scenario_id:02d}"
+
+            save_maze_only_plot(
+                maze=maze,
+                start=start,
+                goal=goal,
+                output_path=str(scenario_out / "01_maze.png"),
+                title=f"Laberinto {scenario_id} — {generator_name.capitalize()} {cols}×{rows}",
+            )
+
+            algo_data = [
+                (
+                    name,
+                    _ALGO_LABELS.get(name, name.upper()),
+                    result.explored_nodes,
+                    result.path,
+                    result.explored_count,
+                    result.elapsed_ms,
+                    ranks[name],
+                )
+                for name, result in metrics.items()
+            ]
+            save_scenario_comparison_plot(
+                maze=maze,
+                start=start,
+                goal=goal,
+                algo_data=algo_data,
+                scenario_id=scenario_id,
+                generator=generator_name,
+                output_path=str(scenario_out / "02_comparison.png"),
+            )
 
         for name, result in metrics.items():
             all_rows.append(
@@ -116,5 +163,17 @@ def run_k_comparison(
                     row.rank,
                 ]
             )
+
+    if viz_dir:
+        per_algo: Dict[str, List[int]] = {}
+        for row in all_rows:
+            per_algo.setdefault(row.algorithm, []).append(row.rank)
+        avg_ranks = {a: mean(r) for a, r in per_algo.items()}
+        save_ranking_bar_chart(
+            avg_ranks=avg_ranks,
+            output_path=str(Path(viz_dir) / "ranking_summary.png"),
+            title=f"Ranking promedio — {generator_name.capitalize()} {cols}×{rows}",
+            k=k,
+        )
 
     return all_rows

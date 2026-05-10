@@ -1,19 +1,10 @@
-# PRY2-IA - Proyecto 2 - IA (Busqueda en Laberintos)
+# PRY2-IA - Proyecto 2 - IA
 
-Base de trabajo para el proyecto de comparacion de algoritmos de busqueda en laberintos.
+### Integrantes
 
-## Alcance cubierto por esta base
-
-1. Generacion de laberintos con dos algoritmos:
-   - Prim
-   - Kruskal
-2. Resolucion de laberintos con:
-   - BFS
-   - DFS
-   - Cost Uniform Search (UCS / Dijkstra)
-   - A*
-3. Comparacion automatica en K escenarios con exportacion de resultados.
-4. Visualizacion de una solucion con imagen en PNG.
+- Javier España #23361
+- Ángel Esquit #23221
+- Roberto Barreda #23354
 
 ## Estructura principal
 
@@ -24,10 +15,6 @@ Base de trabajo para el proyecto de comparacion de algoritmos de busqueda en lab
 - src/main.py: CLI principal
 - tests/: pruebas unitarias
 - reports/: salidas (csv, png, resumen)
-
-## Requisitos
-
-- Python 3.10+
 
 ## Instalacion
 
@@ -64,11 +51,3 @@ Salida esperada:
 Salida esperada:
 - CSV por escenario y algoritmo con nodos explorados, tiempo, longitud y ranking.
 - Resumen de ranking promedio en `reports/ranking_summary.txt`.
-
-## Pruebas
-
-`python -m pytest -q`
-
-## Nota
-
-Esta base cubre la arquitectura y flujo reproducible del proyecto. Puedes extenderla para incluir animaciones paso a paso y escenarios con pesos u obstaculos adicionales para el reporte final.
