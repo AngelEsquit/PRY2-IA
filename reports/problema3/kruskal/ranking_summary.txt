@@ -1,0 +1,5 @@
+Ranking promedio (menor = mejor):
+  ASTAR      1.480
+  DFS        2.240
+  BFS        3.080
+  UCS        3.200

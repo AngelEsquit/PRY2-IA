@@ -1,0 +1,20 @@
+Outputs del Problema 3: Comparacion de algoritmos en K=25 escenarios 45x55
+
+Genera con:
+    python scripts/run_all.py --problema 3
+
+O individualmente:
+    python -m src.main compare --generator prim --rows 45 --cols 55 --k 25 --seed 42 --out-dir reports/problema3/prim
+    python -m src.main compare --generator kruskal --rows 45 --cols 55 --k 25 --seed 42 --out-dir reports/problema3/kruskal
+
+Estructura generada:
+    prim/
+      comparison.csv               Metricas por escenario y algoritmo (BFS, DFS, UCS, A*)
+      ranking_summary.txt          Ranking promedio texto
+      scenarios/
+        scenario_01/ ... scenario_25/
+          01_maze.png              Laberinto del escenario
+          02_comparison.png        Panel 2x2 (4 algoritmos) + tabla: distancia, nodos, ms, lugar
+        ranking_summary.png        Grafico de barras: ranking promedio de los 4 algoritmos
+    kruskal/
+      (misma estructura que prim/)

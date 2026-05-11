@@ -1,0 +1,16 @@
+Outputs del Problema 2: Resolver laberinto 60x80
+
+Genera todas las combinaciones con:
+    python scripts/run_all.py --problema 2
+
+O individualmente:
+    python -m src.main solve --generator prim --search astar --rows 60 --cols 80 --seed 42 --out-dir reports/problema2/prim_astar
+
+Combinaciones (8 total: 2 generadores x 4 algoritmos):
+    prim_astar/       prim_bfs/       prim_dfs/       prim_ucs/
+    kruskal_astar/    kruskal_bfs/    kruskal_dfs/    kruskal_ucs/
+
+Cada subcarpeta contiene:
+    01_maze.png       Laberinto limpio (sin solucion)
+    02_solve.gif      Animacion del proceso de busqueda
+    03_solved.png     Laberinto resuelto (region explorada en azul + camino en naranja)

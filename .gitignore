@@ -21,11 +21,14 @@ htmlcov/
 # Notebook checkpoints
 .ipynb_checkpoints/
 
-# Project outputs
+# Project outputs — track the three problem directories, ignore everything else
 data/processed/*
 !data/processed/.gitkeep
 reports/*
 !reports/.gitkeep
+!reports/problema1/
+!reports/problema2/
+!reports/problema3/
 
 # Environment variables
 .env

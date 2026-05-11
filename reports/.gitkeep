@@ -1,0 +1,41 @@
+Outputs del Proyecto 2 - IA: Algoritmos de Busqueda en Laberintos
+
+Genera todos los outputs con:
+    python scripts/run_all.py           (completo)
+    python scripts/run_all.py --no-gif  (sin GIFs, mas rapido)
+    python -m src.main                  (menu interactivo)
+
+Estructura esperada:
+  reports/
+  |
+  +-- problema1/                          <- Problema 1: Generacion de laberintos
+  |     01_prim_maze.png                  Laberinto final con algoritmo de Prim
+  |     02_kruskal_maze.png               Laberinto final con algoritmo de Kruskal
+  |     03_generation_compare.gif         Animacion comparativa de construccion
+  |
+  +-- problema2/                          <- Problema 2: Resolver laberinto 60x80
+  |   |   (8 combinaciones: 2 gen x 4 algo)
+  |   +-- prim_astar/
+  |   +-- prim_bfs/
+  |   +-- prim_dfs/
+  |   +-- prim_ucs/
+  |   +-- kruskal_astar/
+  |   +-- kruskal_bfs/
+  |   +-- kruskal_dfs/
+  |   +-- kruskal_ucs/
+  |         (cada subcarpeta contiene:)
+  |         01_maze.png        Laberinto sin solucion
+  |         02_solve.gif       Animacion del proceso de busqueda
+  |         03_solved.png      Laberinto resuelto (region explorada + camino)
+  |
+  +-- problema3/                          <- Problema 3: Comparacion K=25 escenarios
+      +-- prim/
+      +-- kruskal/
+            (cada subcarpeta contiene:)
+            comparison.csv                Metricas por escenario y algoritmo
+            ranking_summary.txt           Ranking promedio (texto)
+            scenarios/
+              scenario_NN/
+                01_maze.png               Laberinto del escenario
+                02_comparison.png         Panel 2x2 (4 algoritmos) + tabla stats
+              ranking_summary.png         Grafico de barras del ranking final

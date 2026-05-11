@@ -1,0 +1,9 @@
+Outputs del Problema 1: Generacion de laberintos (Prim vs Kruskal)
+
+Genera con:
+    python -m src.main buildviz --rows 30 --cols 40 --seed 42 --out-dir reports/problema1
+
+Archivos esperados:
+    01_prim_maze.png              Laberinto generado con Prim (30x40)
+    02_kruskal_maze.png           Laberinto generado con Kruskal (30x40)
+    03_generation_compare.gif     Animacion comparativa de construccion
