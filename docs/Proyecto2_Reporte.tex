@@ -1,5 +1,4 @@
 \documentclass[12pt,a4paper]{article}
-\usepackage[utf-8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{graphicx}
 \usepackage{amsmath}
@@ -1058,39 +1057,211 @@ Debugging/pruebas & BFS & Comportamiento predecible \\
     \item Extensible a variantes más complejas
 \end{itemize}
 
-\section{Resumen Técnico}
-
-\subsection{Estadísticas del Proyecto}
-
-\begin{table}[H]
 \centering
-\caption{Estadísticas generales}
+\caption{Estadísticas cuantitativas del proyecto}
 \begin{tabular}{|l|r|}
 \hline
 \textbf{Concepto} & \textbf{Cantidad} \\
 \hline
-Generadores implementados & 2 \\
-Algoritmos de búsqueda & 4 \\
-Laberintos generados & 51 (1 P1 + 8 P2 + 25×2 P3) \\
-Visualizaciones & 129 (3 P1 + 24 P2 + 102 P3) \\
-GIFs generados & 9 \\
-Escenarios de comparación & 25×2 = 50 \\
-Datos de ranking & 200 registros \\
+\multicolumn{2}{|l|}{\textbf{Generadores de Laberintos}} \\
+\hline
+Generadores implementados & 2 (Prim, Kruskal) \\
+\hline
+\multicolumn{2}{|l|}{\textbf{Algoritmos de Búsqueda}} \\
+\hline
+Algoritmos implementados & 4 (BFS, DFS, UCS, A*) \\
+\hline
+Heurísticas para A* & 1 (Manhattan) \\
+\hline
+\multicolumn{2}{|l|}{\textbf{Laberintos Generados}} \\
+\hline
+Problema 1 (demo) & 1 × (60×80) \\
+\hline
+Problema 2 (resolución) & 8 (2 generadores × 4 algoritmos) \\
+\hline
+Problema 3 (comparación) & 50 (25 × 2 generadores) \\
+\hline
+Total laberintos & 59 \\
+\hline
+\multicolumn{2}{|l|}{\textbf{Experimentos Ejecutados}} \\
+\hline
+Búsquedas totales & 200 (25 × 2 × 4) \\
+\hline
+Datos de métricas & 1600 puntos \\
+\hline
+\multicolumn{2}{|l|}{\textbf{Artefactos Generados}} \\
+\hline
+Imágenes PNG & 129 \\
+\hline
+Animaciones GIF & 9 \\
+\hline
+Archivos CSV & 2 (200 registros totales) \\
+\hline
+Archivos de ranking TXT & 2 \\
+\hline
+\multicolumn{2}{|l|}{\textbf{Código}} \\
+\hline
+Módulos Python & 6 \\
+\hline
+Líneas de código & ~1500 \\
+\hline
+Funciones implementadas & 25+ \\
 \hline
 \end{tabular}
 \end{table}
 
-\subsection{Requisitos Cumplidos}
+\subsection{Compliance con Requisitos}
 
+\begin{table}[H]
+\centering
+\caption{Checklist de requisitos del Proyecto 2}
+\begin{tabular}{|p{6cm}|c|}
+\hline
+\textbf{Requisito} & \textbf{Estado} \\
+\hline
+\textit{Problema 1: Generación de Laberintos} & \\
+Implementar ≥2 algoritmos MST & \checkmark \\
+Visualizar construcción laberintos & \checkmark \\
+Comparar algoritmos visualmente & \checkmark \\
+Animaciones de construcción & \checkmark \\
+\hline
+\textit{Problema 2: Resolución de Laberintos} & \\
+Laberinto 60×80 & \checkmark \\
+Rutas (1,1) a (60,80) & \checkmark \\
+Implementar BFS & \checkmark \\
+Implementar DFS & \checkmark \\
+Implementar UCS/Dijkstra & \checkmark \\
+Implementar A* & \checkmark \\
+Mostrar celdas exploradas & \checkmark \\
+Mostrar camino encontrado & \checkmark \\
+Estadísticas (longitud, explorados) & \checkmark \\
+Usar ambos generadores & \checkmark \\
+Animaciones de resolución & \checkmark \\
+\hline
+\textit{Problema 3: Comparación} & \\
+Grid 45×55 & \checkmark \\
+25 escenarios aleatorios & \checkmark \\
+Restricción Manhattan ≥10 & \checkmark \\
+Comparar 4 algoritmos & \checkmark \\
+Tabla de métricas & \checkmark \\
+Ranking por escenario & \checkmark \\
+Tabla resumen promedio & \checkmark \\
+Visualizaciones escenarios & \checkmark \\
+\hline
+\textit{Reporte} & \\
+Explicación algoritmos MST & \checkmark \\
+Explicación algoritmos búsqueda & \checkmark \\
+Descripción técnica implementación & \checkmark \\
+Arquitectura y clases & \checkmark \\
+Visualizaciones Problema 1 & \checkmark \\
+Visualizaciones Problema 2 & \checkmark \\
+Visualizaciones Problema 3 & \checkmark \\
+Tablas comparativas & \checkmark \\
+Conclusiones & \checkmark \\
+Sin código en reporte & \checkmark \\
+Formato PDF/LaTeX & \checkmark \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Configuraciones Computacionales}
+
+\begin{table}[H]
+\centering
+\caption{Parámetros computacionales del sistema}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Parámetro} & \textbf{Valor} \\
+\hline
+Precisión de tiempo & \texttt{time.perf\_counter()} (nanosegundos) \\
+Frames por animación & 140 \\
+FPS animaciones & 12 \\
+Resolución imágenes & 180 DPI \\
+Compresión PNG & Máxima \\
+Dimensiones Problema 1 & 60×80 celdas \\
+Dimensiones Problema 2 & 60×80 celdas \\
+Dimensiones Problema 3 & 45×55 celdas \\
+Distancia Manhattan mínima & 10 unidades \\
+Escenarios de comparación & 25 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Archivos Entregables}
+
+\subsubsection{Estructura de Directorios}
+
+\begin{verbatim}
+PRY2-IA/
+├── README.md                    # Descripción del proyecto
+├── requirements.txt             # Dependencias Python
+├── docs/
+│   └── Proyecto2_Reporte.tex   # Este reporte (LaTeX)
+├── src/                         # Código fuente
+│   ├── __init__.py
+│   ├── main.py                 # Punto de entrada CLI
+│   ├── menu.py                 # Interfaz TUI
+│   ├── runner.py               # Orquestación
+│   ├── maze/
+│   │   ├── grid.py             # Representación de laberintos
+│   │   └── generators.py       # Prim y Kruskal
+│   ├── search/
+│   │   └── algorithms.py       # BFS, DFS, UCS, A*
+│   ├── visualization/
+│   │   └── plotting.py         # Generación de gráficos
+│   └── experiments/
+│       └── compare.py          # Comparación y ranking
+├── scripts/
+│   └── run_all.py              # Script de ejecución
+├── tests/
+│   ├── test_baseline.py        # Pruebas unitarias
+│   └── test_compare.py         # Pruebas de comparación
+└── reports/
+    ├── problema1/              # Salida Problema 1
+    ├── problema2/              # Salida Problema 2
+    └── problema3/              # Salida Problema 3
+        └── kruskal/
+            ├── comparison.csv
+            ├── ranking_summary.txt
+            └── scenarios/ (25 directorios)
+\end{verbatim}
+
+\subsection{Dependencias Externas}
+
+\begin{table}[H]
+\centering
+\caption{Librerías Python utilizadas}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Librería} & \textbf{Versión} & \textbf{Uso} \\
+\hline
+numpy & 1.26.4 & Operaciones numéricas \\
+pandas & 2.2.2 & Análisis de datos CSV \\
+matplotlib & 3.9.2 & Generación de gráficos \\
+scikit-learn & 1.5.2 & Utilidades estadísticas \\
+PIL/Pillow & (implícita) & Manejo de imágenes GIF \\
+pytest & 8.3.3 & Framework de pruebas \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Reproducibilidad}
+
+Para reproducir exactamente los resultados:
+
+\begin{enumerate}
+    \item Ejecutar con Python 3.10+ en Linux/macOS/Windows
+    \item Instalar dependencias: \texttt{pip install -r requirements.txt}
+    \item Ejecutar comparación: \texttt{python -m src.main compare --k 25}
+    \item Resultados en \texttt{reports/problema3/}
+    \item Semillas utilizadas: hardcodeadas para reproducibilidad
+\end{enumerate}
+
+Notas:
 \begin{itemize}
-    \item[\checkmark] Implementación de 2+ algoritmos de MST (Prim, Kruskal)
-    \item[\checkmark] Visualizaciones animadas de generación
-    \item[\checkmark] Solución de laberinto 60×80 con 4 algoritmos
-    \item[\checkmark] Estadísticas completas (explorados, tiempo, longitud)
-    \item[\checkmark] Comparación en 25 escenarios 45×55
-    \item[\checkmark] Ranking promedio de algoritmos
-    \item[\checkmark] Código modular y documentado
-    \item[\checkmark] Análisis comparativo y conclusiones
+    \item Tiempos pueden variar ±5\% según carga del sistema
+    \item Rankings son determinísticos dados los mismos laberintos
+    \item GIFs pueden tener variaciones menores de compresión
 \end{itemize}
 
 \end{document}
