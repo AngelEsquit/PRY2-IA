@@ -490,13 +490,20 @@ El algoritmo con ranking promedio más bajo es el mejor desempeño global.
 
 \subsubsection{Ejemplos Visuales de Escenarios}
 
-Las siguientes figuras muestran tres escenarios distintos visualizando las diferencias entre algoritmos:
+Las siguientes figuras muestran tres escenarios distintos visualizando las diferencias entre algoritmos. Cada escenario se presenta en dos figuras separadas para mantener el tamaño legible de los detalles internos.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{../reports/problema3/prim/scenarios/scenario_01/02_comparison.png}
 \caption{Escenario 1 (Prim)}
-\label{fig:scenario_example_01}
+\label{fig:scenario_example_01_prim}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{../reports/problema3/kruskal/scenarios/scenario_01/02_comparison.png}
+\caption{Escenario 1 (Kruskal)}
+\label{fig:scenario_example_01_kruskal}
 \end{figure}
 
 \clearpage
@@ -505,7 +512,14 @@ Las siguientes figuras muestran tres escenarios distintos visualizando las difer
 \centering
 \includegraphics[width=0.9\textwidth]{../reports/problema3/prim/scenarios/scenario_10/02_comparison.png}
 \caption{Escenario 10 (Prim)}
-\label{fig:scenario_example_10}
+\label{fig:scenario_example_10_prim}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{../reports/problema3/kruskal/scenarios/scenario_10/02_comparison.png}
+\caption{Escenario 10 (Kruskal)}
+\label{fig:scenario_example_10_kruskal}
 \end{figure}
 
 \clearpage
@@ -514,7 +528,14 @@ Las siguientes figuras muestran tres escenarios distintos visualizando las difer
 \centering
 \includegraphics[width=0.9\textwidth]{../reports/problema3/prim/scenarios/scenario_25/02_comparison.png}
 \caption{Escenario 25 (Prim)}
-\label{fig:scenario_example_25}
+\label{fig:scenario_example_25_prim}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{../reports/problema3/kruskal/scenarios/scenario_25/02_comparison.png}
+\caption{Escenario 25 (Kruskal)}
+\label{fig:scenario_example_25_kruskal}
 \end{figure}
 
 Cada visualización muestra:
@@ -1120,59 +1141,7 @@ Funciones implementadas & 25+ \\
 \end{tabular}
 \end{table}
 
-\subsection{Compliance con Requisitos}
-
-\begin{table}[H]
-\centering
-\caption{Checklist de requisitos del Proyecto 2}
-\begin{tabular}{|p{6cm}|c|}
-\hline
-\textbf{Requisito} & \textbf{Estado} \\
-\hline
-\textit{Problema 1: Generación de Laberintos} & \\
-Implementar $\geq 2$ algoritmos MST & \checkmark \\
-Visualizar construcción laberintos & \checkmark \\
-Comparar algoritmos visualmente & \checkmark \\
-Animaciones de construcción & \checkmark \\
-\hline
-\textit{Problema 2: Resolución de Laberintos} & \\
-Laberinto 60×80 & \checkmark \\
-Rutas (1,1) a (60,80) & \checkmark \\
-Implementar BFS & \checkmark \\
-Implementar DFS & \checkmark \\
-Implementar UCS/Dijkstra & \checkmark \\
-Implementar A* & \checkmark \\
-Mostrar celdas exploradas & \checkmark \\
-Mostrar camino encontrado & \checkmark \\
-Estadísticas (longitud, explorados) & \checkmark \\
-Usar ambos generadores & \checkmark \\
-Animaciones de resolución & \checkmark \\
-\hline
-\textit{Problema 3: Comparación} & \\
-Grid 45×55 & \checkmark \\
-25 escenarios aleatorios & \checkmark \\
-Restricción Manhattan $\geq 10$ & \checkmark \\
-Comparar 4 algoritmos & \checkmark \\
-Tabla de métricas & \checkmark \\
-Ranking por escenario & \checkmark \\
-Tabla resumen promedio & \checkmark \\
-Visualizaciones escenarios & \checkmark \\
-\hline
-\textit{Reporte} & \\
-Explicación algoritmos MST & \checkmark \\
-Explicación algoritmos búsqueda & \checkmark \\
-Descripción técnica implementación & \checkmark \\
-Arquitectura y clases & \checkmark \\
-Visualizaciones Problema 1 & \checkmark \\
-Visualizaciones Problema 2 & \checkmark \\
-Visualizaciones Problema 3 & \checkmark \\
-Tablas comparativas & \checkmark \\
-Conclusiones & \checkmark \\
-Sin código en reporte & \checkmark \\
-Formato PDF/LaTeX & \checkmark \\
-\hline
-\end{tabular}
-\end{table}
+% Sección "Compliance con Requisitos" eliminada por petición del autor.
 
 \subsection{Configuraciones Computacionales}
 
