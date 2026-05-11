@@ -24,6 +24,7 @@
 \fancyhf{}
 \fancyhead[L]{\textit{Segundo Proyecto: Algoritmos de Búsqueda}}
 \fancyhead[R]{\textit{Inteligencia Artificial 2026}}
+\setlength{\headheight}{14.5pt}
 \fancyfoot[C]{\thepage\ de \pageref{LastPage}}
 
 % Configuración de código
@@ -128,7 +129,7 @@ Se generan visualizaciones que muestran el proceso de construcción de ambos alg
 
 \subsubsection{Comparación Visual de Generadores}
 
-La Figura \ref{fig:prim_maze} muestra un laberinto generado con Prim, donde se observa una estructura más lineal con ciertas preferencias direccionales. La Figura \ref{fig:kruskal_maze} presenta un laberinto de Kruskal con distribución más equilibrada. La Figura \ref{fig:generation_compare} es una animación GIF que visualiza paso a paso cómo ambos algoritmos construyen sus respectivas estructuras.
+La Figura \ref{fig:prim_maze} muestra un laberinto generado con Prim, donde se observa una estructura más lineal con ciertas preferencias direccionales. La Figura \ref{fig:kruskal_maze} presenta un laberinto de Kruskal con distribución más equilibrada. La Figura \ref{fig:generation_comparison} es una animación GIF que visualiza paso a paso cómo ambos algoritmos construyen sus respectivas estructuras.
 
 \begin{figure}[H]
 \centering
@@ -223,7 +224,9 @@ Dado un laberinto de dimensiones 60×80, encontrar la ruta más corta desde la e
 \State $\text{visited} \gets \emptyset$
 \While{stack no esté vacía}
     \State $node \gets \text{stack.pop()}$
-    \If{$node \in visited$} \Continue \EndIf
+    \If{$node \in visited$}
+        \State \textbf{continue}
+    \EndIf
     \State $visited.add(node)$
     \If{$node == goal$}
         \Return \text{reconstructPath}(node)
@@ -259,7 +262,9 @@ Dado un laberinto de dimensiones 60×80, encontrar la ruta más corta desde la e
 \State $\text{best\_cost} \gets \{start: 0\}$
 \While{frontier no esté vacía}
     \State $(cost, node) \gets \text{frontier.popMin()}$
-    \If{$cost > best\_cost[node]$} \Continue \EndIf
+    \If{$cost > best\_cost[node]$}
+        \State \textbf{continue}
+    \EndIf
     \If{$node == goal$}
         \Return \text{reconstructPath}(node)
     \EndIf
@@ -296,7 +301,9 @@ Dado un laberinto de dimensiones 60×80, encontrar la ruta más corta desde la e
 \State $\text{g\_cost} \gets \{start: 0\}$
 \While{frontier no esté vacía}
     \State $(f, g, node) \gets \text{frontier.popMin()}$
-    \If{$g > g\_cost[node]$} \Continue \EndIf
+    \If{$g > g\_cost[node]$}
+        \State \textbf{continue}
+    \EndIf
     \If{$node == goal$}
         \Return \text{reconstructPath}(node)
     \EndIf
@@ -483,29 +490,31 @@ El algoritmo con ranking promedio más bajo es el mejor desempeño global.
 
 \subsubsection{Ejemplos Visuales de Escenarios}
 
-La Figura \ref{fig:scenario_examples} muestra ejemplos de tres escenarios distintos visualizando las diferencias entre algoritmos:
+Las siguientes figuras muestran tres escenarios distintos visualizando las diferencias entre algoritmos:
 
 \begin{figure}[H]
 \centering
-\begin{subfigure}{0.32\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{../reports/problema3/prim/scenarios/scenario_01/02_comparison.png}
-    \caption{Escenario 1 (Prim)}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{../reports/problema3/prim/scenarios/scenario_10/02_comparison.png}
-    \caption{Escenario 10 (Prim)}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{../reports/problema3/prim/scenarios/scenario_25/02_comparison.png}
-    \caption{Escenario 25 (Prim)}
-\end{subfigure}
-\caption{Ejemplos de comparaciones de algoritmos en Problema 3 (45×55 con restricción Manhattan ≥10)}
-\label{fig:scenario_examples}
+\includegraphics[width=0.9\textwidth]{../reports/problema3/prim/scenarios/scenario_01/02_comparison.png}
+\caption{Escenario 1 (Prim)}
+\label{fig:scenario_example_01}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{../reports/problema3/prim/scenarios/scenario_10/02_comparison.png}
+\caption{Escenario 10 (Prim)}
+\label{fig:scenario_example_10}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{../reports/problema3/prim/scenarios/scenario_25/02_comparison.png}
+\caption{Escenario 25 (Prim)}
+\label{fig:scenario_example_25}
 \end{figure}
 
 Cada visualización muestra:
@@ -522,7 +531,7 @@ Cada visualización muestra:
 \caption{Comparación de impacto del generador (delta = Prim - Kruskal)}
 \begin{tabular}{|c|c|c|c|}
 \hline
-\textbf{Algoritmo} & \textbf{Prim} & \textbf{Kruskal} & \textbf{Δ (Prim-Kruskal)} \\
+\textbf{Algoritmo} & \textbf{Prim} & \textbf{Kruskal} & \textbf{$\Delta$ (Prim-Kruskal)} \\
 \hline
 A* & 1.320 & 1.480 & -0.160 \\
 \hline
@@ -603,9 +612,9 @@ Encapsula toda la información de una búsqueda:
 @dataclass
 class SearchResult:
     path: List[Cell]              # Ruta del start al goal
-    explored_count: int           # Número de nodos expandidos
+    explored_count: int           # Numero de nodos expandidos
     explored_nodes: Set[Cell]     # Conjunto de explorados
-    explored_order: List[Cell]    # Orden de exploración
+    explored_order: List[Cell]    # Orden de exploracion
     path_cost: float              # Costo total de ruta
     elapsed_ms: float             # Tiempo en milisegundos
 \end{lstlisting}
@@ -643,7 +652,7 @@ class UnionFind:
 
 \begin{lstlisting}
 import time
-t0 = time.perf_counter()    # Precisión de nanosegundos
+t0 = time.perf_counter()    # Precision de nanosegundos
 # ... algoritmo ...
 elapsed_ms = (time.perf_counter() - t0) * 1000
 \end{lstlisting}
@@ -864,7 +873,7 @@ El ranking promedio es estable:
     \item A* lidera en 18/25 escenarios Prim (72\%)
     \item DFS segunda en 14/25 escenarios (56\%)
     \item Ningún algoritmo sufre inversiones drásticas
-    \item Rankings tienen varianza moderada (σ ≈ 0.3-0.5)
+    \item Rankings tienen varianza moderada ($\sigma \approx 0.3$--$0.5$)
 \end{itemize}
 
 \section{Conclusiones}
@@ -1057,6 +1066,7 @@ Debugging/pruebas & BFS & Comportamiento predecible \\
     \item Extensible a variantes más complejas
 \end{itemize}
 
+\begin{table}[H]
 \centering
 \caption{Estadísticas cuantitativas del proyecto}
 \begin{tabular}{|l|r|}
@@ -1120,7 +1130,7 @@ Funciones implementadas & 25+ \\
 \textbf{Requisito} & \textbf{Estado} \\
 \hline
 \textit{Problema 1: Generación de Laberintos} & \\
-Implementar ≥2 algoritmos MST & \checkmark \\
+Implementar $\geq 2$ algoritmos MST & \checkmark \\
 Visualizar construcción laberintos & \checkmark \\
 Comparar algoritmos visualmente & \checkmark \\
 Animaciones de construcción & \checkmark \\
@@ -1141,7 +1151,7 @@ Animaciones de resolución & \checkmark \\
 \textit{Problema 3: Comparación} & \\
 Grid 45×55 & \checkmark \\
 25 escenarios aleatorios & \checkmark \\
-Restricción Manhattan ≥10 & \checkmark \\
+Restricción Manhattan $\geq 10$ & \checkmark \\
 Comparar 4 algoritmos & \checkmark \\
 Tabla de métricas & \checkmark \\
 Ranking por escenario & \checkmark \\
@@ -1193,37 +1203,37 @@ Escenarios de comparación & 25 \\
 
 \begin{verbatim}
 PRY2-IA/
-├── README.md                    # Descripción del proyecto
-├── requirements.txt             # Dependencias Python
-├── docs/
-│   └── Proyecto2_Reporte.tex   # Este reporte (LaTeX)
-├── src/                         # Código fuente
-│   ├── __init__.py
-│   ├── main.py                 # Punto de entrada CLI
-│   ├── menu.py                 # Interfaz TUI
-│   ├── runner.py               # Orquestación
-│   ├── maze/
-│   │   ├── grid.py             # Representación de laberintos
-│   │   └── generators.py       # Prim y Kruskal
-│   ├── search/
-│   │   └── algorithms.py       # BFS, DFS, UCS, A*
-│   ├── visualization/
-│   │   └── plotting.py         # Generación de gráficos
-│   └── experiments/
-│       └── compare.py          # Comparación y ranking
-├── scripts/
-│   └── run_all.py              # Script de ejecución
-├── tests/
-│   ├── test_baseline.py        # Pruebas unitarias
-│   └── test_compare.py         # Pruebas de comparación
-└── reports/
-    ├── problema1/              # Salida Problema 1
-    ├── problema2/              # Salida Problema 2
-    └── problema3/              # Salida Problema 3
-        └── kruskal/
-            ├── comparison.csv
-            ├── ranking_summary.txt
-            └── scenarios/ (25 directorios)
+|-- README.md                    # Descripcion del proyecto
+|-- requirements.txt             # Dependencias Python
+|-- docs/
+|   `-- Proyecto2_Reporte.tex    # Este reporte (LaTeX)
+|-- src/                         # Codigo fuente
+|   |-- __init__.py
+|   |-- main.py                  # Punto de entrada CLI
+|   |-- menu.py                  # Interfaz TUI
+|   |-- runner.py                # Orquestacion
+|   |-- maze/
+|   |   |-- grid.py              # Representacion de laberintos
+|   |   `-- generators.py        # Prim y Kruskal
+|   |-- search/
+|   |   `-- algorithms.py        # BFS, DFS, UCS, A*
+|   |-- visualization/
+|   |   `-- plotting.py          # Generacion de graficos
+|   `-- experiments/
+|       `-- compare.py           # Comparacion y ranking
+|-- scripts/
+|   `-- run_all.py               # Script de ejecucion
+|-- tests/
+|   |-- test_baseline.py         # Pruebas unitarias
+|   `-- test_compare.py          # Pruebas de comparacion
+`-- reports/
+    |-- problema1/               # Salida Problema 1
+    |-- problema2/               # Salida Problema 2
+    `-- problema3/               # Salida Problema 3
+        `-- kruskal/
+            |-- comparison.csv
+            |-- ranking_summary.txt
+            `-- scenarios/ (25 directorios)
 \end{verbatim}
 
 \subsection{Dependencias Externas}
